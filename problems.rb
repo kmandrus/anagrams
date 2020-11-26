@@ -1,5 +1,4 @@
-    #Phase I
-    #Stores all possible anagrams
+    #Phase I - Stores all possible anagrams
 def first_anagram?(word_1, word_2)
     all_anagrams(word_1).include?(word_2)
 end
@@ -25,7 +24,26 @@ end
 
 p first_anagram?("gizmo", "sally")    #=> false
 p first_anagram?("elvis", "lives")    #=> true
-    
+
+    #Phase II - uses Array#delete
+def second_anagram?(word_1, word_2)
+    leftover_letters = word_2.dup #linear
+    word_1.each_char do |char| #linear
+        return false unless leftover_letters.delete!(char) #linear
+    end
+    leftover_letters.length == 0 #constant
+end
+
+p second_anagram?("gizmo", "sally")    #=> false
+p second_anagram?("elvis", "lives")    #=> true
+
+#What is the time complexity of this solution?
+    #I believe this solution runs in O(n^2). The word_1.each_char loops runs in
+    #linear time, and the #delete! method also runs in linear time. (At least,
+    #I imagine it does!) Because of these nested linear loops, it runs in
+    #quadratic time.
+
+
     #Tests
 #anagram?("gizmo", "sally")    #=> false
 #anagram?("elvis", "lives")    #=> true
