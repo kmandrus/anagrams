@@ -43,7 +43,34 @@ p second_anagram?("elvis", "lives")    #=> true
     #I imagine it does!) Because of these nested linear loops, it runs in
     #quadratic time.
 
+    #Phase III
+def third_anagram?(word_1, word_2)
+    sorted_1, sorted_2 = word_1.split('').sort, word_2.split('').sort #2 x nlog(n)
+    sorted_1 == sorted_2 #constant time
+end
+p third_anagram?("gizmo", "sally")    #=> false
+p third_anagram?("elvis", "lives")    #=> true
 
-    #Tests
-#anagram?("gizmo", "sally")    #=> false
-#anagram?("elvis", "lives")    #=> true
+#What is the time complexity of this solution?
+    #This solution runs in O(nlogn) time. This is based on the assumption that
+    #Array#sort implements a sort fuction that runs in nlog(n) time.
+
+    #Phase IV
+def fourth_anagram?(word_1, word_2)
+    count_1 = Hash.new(0) #constant time
+    count_2 = Hash.new(0) #constant time
+    word_1.each_char do |char| #linear time
+        count_1[char] += 1 #constant time
+    end
+    word_2.each_char do |char| #linear time
+        count_2[char] += 1 #constant time
+    end
+    count_1 == count_2 #constant time
+end
+
+p fourth_anagram?("gizmo", "sally")    #=> false
+p fourth_anagram?("elvis", "lives")    #=> true
+
+#What is the time complexity of this solution?
+    #This runs in O(n). Each hash counts up the letters in each word in
+    #linear time.
